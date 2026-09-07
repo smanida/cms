@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Operator - SMAN 1 Cidahu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body class="bg-gray-50 min-h-screen p-4 sm:p-6">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header Admin -->
+    <div class="flex justify-between items-center mb-6 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+      <div>
+        <h1 class="text-xl font-bold text-gray-800">Panel Operator SMAN 1 Cidahu</h1>
+        <p class="text-xs text-gray-500">Kelola publikasi berita dan dokumentasi foto</p>
+      </div>
+      <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition">
+        <i class="ph ph-sign-out text-sm"></i> Keluar
+      </button>
+    </div>
+
+    <!-- Tab Navigasi -->
+    <div class="flex border-b border-gray-200 mb-6 gap-2">
+      <button onclick="switchTab('berita')" id="tabBtnBerita" class="py-2.5 px-4 font-semibold text-sm border-b-2 border-blue-600 text-blue-600 transition flex items-center gap-2">
+        <i class="ph ph-newspaper"></i> Kelola Berita
+      </button>
+      <button onclick="switchTab('galeri')" id="tabBtnGaleri" class="py-2.5 px-4 font-semibold text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition flex items-center gap-2">
+        <i class="ph ph-images"></i> Kelola Galeri Kegiatan
+      </button>
+    </div>
+
+    <!-- ================= TAB KELOLA BERITA ================= -->
+    <div id="sectionBerita" class="space-y-6">
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <h2 class="text-base font-bold mb-4 text-gray-800">Tulis Berita Baru</h2>
+        <form id="beritaForm" class="space-y-4">
+          <input type="text" id="judul" placeholder="Judul Berita" required class="w-full border rounded-lg p-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500">
+          <textarea id="ringkasan" placeholder="Ringkasan Singkat (1-2 kalimat)" rows="2" class="w-full border rounded-lg p-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+          <textarea id="konten" placeholder="Isi Berita Lengkap..." rows="5" required class="w-full border rounded-lg p-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Unggah Foto Utama (Opsional)</label>
+            <input type="file" id="gambar" accept="image/*" class="text-sm">
+          </div>
+          <button type="submit" id="submitBeritaBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg font-medium text-sm transition">
+            Publikasikan Berita
+          </button>
+        </form>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <h2 class="text-base font-bold mb-4 text-gray-800">Daftar Berita Terbit</h2>
+        <div id="beritaList" class="divide-y text-sm">Memuat berita...</div>
+      </div>
+    </div>
+
+    <!-- ================= TAB KELOLA GALERI ================= -->
+    <div id="sectionGaleri" class="space-y-6 hidden">
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <h2 class="text-base font-bold mb-4 text-gray-800">Unggah Foto Dokumentasi Baru</h2>
+        <form id="galeriForm" class="space-y-4">
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Judul / Keterangan Singkat Kegiatan</label>
+            <input type="text" id="judulGaleri" placeholder="Contoh: Upacara Hari Kemerdekaan, Lomba Pramuka, Aksi Bersih Lingkungan" required class="w-full border rounded-lg p-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Kategori Kegiatan</label>
+            <select id="kategoriGaleri" class="w-full border rounded-lg p-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="Akademik">Akademik & Pembelajaran</option>
+              <option value="Ekstrakurikuler">Ekstrakurikuler & Olahraga</option>
+              <option value="Green School">Green School & Lingkungan Hidup</option>
+              <option value="Keagamaan">Keagamaan & Karakter</option>
+              <option value="Kegiatan Umum">Kegiatan Umum / Upacara</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Pilih File Foto (Wajib)</label>
+            <input type="file" id="fileGaleri" accept="image/*" required class="text-sm">
+          </div>
+          <button type="submit" id="submitGaleriBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-lg font-medium text-sm transition">
+            Unggah ke Galeri
+          </button>
+        </form>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <h2 class="text-base font-bold mb-4 text-gray-800">Koleksi Foto Saat Ini</h2>
+        <div id="galeriListGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          <p class="text-gray-500 text-xs col-span-full">Memuat dokumentasi...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/supabase.js"></script>
+  <script>
+    // 1. Cek Autentikasi
+    async function checkAuth() {
+      const { data: { session } } = await db.auth.getSession();
+      if (!session) window.location.href = './index.html';
+    }
+    checkAuth();
+
+    // 2. Tombol Logout
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await db.auth.signOut();
+      window.location.href = './index.html';
+    });
+
+    // 3. Tab Switching
+    function switchTab(tab) {
+      const secBerita = document.getElementById('sectionBerita');
+      const secGaleri = document.getElementById('sectionGaleri');
+      const btnBerita = document.getElementById('tabBtnBerita');
+      const btnGaleri = document.getElementById('tabBtnGaleri');
+
+      if (tab === 'berita') {
+        secBerita.classList.remove('hidden');
+        secGaleri.classList.add('hidden');
+        btnBerita.className = "py-2.5 px-4 font-semibold text-sm border-b-2 border-blue-600 text-blue-600 transition flex items-center gap-2";
+        btnGaleri.className = "py-2.5 px-4 font-semibold text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition flex items-center gap-2";
+      } else {
+        secBerita.classList.add('hidden');
+        secGaleri.classList.remove('hidden');
+        btnGaleri.className = "py-2.5 px-4 font-semibold text-sm border-b-2 border-emerald-600 text-emerald-600 transition flex items-center gap-2";
+        btnBerita.className = "py-2.5 px-4 font-semibold text-sm border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition flex items-center gap-2";
+        fetchGaleri();
+      }
+    }
+
+    // ================= LOGIKA BERITA =================
+    async function fetchBerita() {
+      const { data, error } = await db.from('berita').select('*').order('created_at', { ascending: false });
+      const container = document.getElementById('beritaList');
+      if (error || !data || !data.length) {
+        container.innerHTML = '<p class="text-gray-500 py-3 text-xs">Belum ada berita yang diterbitkan.</p>';
+        return;
+      }
+      container.innerHTML = data.map(item => `
+        <div class="py-3 flex justify-between items-center gap-3">
+          <div>
+            <h3 class="font-semibold text-gray-800 leading-snug">${item.judul}</h3>
+            <p class="text-xs text-gray-400 mt-0.5">${new Date(item.created_at).toLocaleDateString('id-ID')}</p>
+          </div>
+          <button onclick="deleteBerita(${item.id})" class="text-red-500 hover:text-red-700 text-xs font-semibold shrink-0">Hapus</button>
+        </div>
+      `).join('');
+    }
+
+    document.getElementById('beritaForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBeritaBtn');
+      btn.disabled = true;
+      btn.textContent = 'Menyimpan Berita...';
+
+      let gambarUrl = null;
+      const fileInput = document.getElementById('gambar');
+
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const fileExt = file.name.split('.').pop();
+        const cleanFileName = `berita_${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
+
+        const { error: uploadError } = await db.storage.from('berita-images').upload(cleanFileName, file);
+        if (uploadError) {
+          alert('Gagal unggah foto berita: ' + uploadError.message);
+          btn.disabled = false;
+          btn.textContent = 'Publikasikan Berita';
+          return;
+        }
+
+        const { data: publicUrlData } = db.storage.from('berita-images').getPublicUrl(cleanFileName);
+        gambarUrl = publicUrlData.publicUrl;
+      }
+
+      const { error } = await db.from('berita').insert([{
+        judul: document.getElementById('judul').value,
+        ringkasan: document.getElementById('ringkasan').value,
+        konten: document.getElementById('konten').value,
+        gambar_url: gambarUrl
+      }]);
+
+      if (!error) {
+        document.getElementById('beritaForm').reset();
+        fetchBerita();
+      } else {
+        alert('Gagal menyimpan berita: ' + error.message);
+      }
+      btn.disabled = false;
+      btn.textContent = 'Publikasikan Berita';
+    });
+
+    async function deleteBerita(id) {
+      if (confirm('Hapus berita ini?')) {
+        await db.from('berita').delete().eq('id', id);
+        fetchBerita();
+      }
+    }
+
+    // ================= LOGIKA GALERI =================
+    async function fetchGaleri() {
+      const { data, error } = await db.from('galeri').select('*').order('created_at', { ascending: false });
+      const container = document.getElementById('galeriListGrid');
+      if (error || !data || !data.length) {
+        container.innerHTML = '<p class="text-gray-500 text-xs col-span-full py-4 text-center">Belum ada foto kegiatan.</p>';
+        return;
+      }
+
+      container.innerHTML = data.map(item => `
+        <div class="relative group rounded-lg overflow-hidden border border-gray-200 bg-gray-100 flex flex-col justify-between">
+          <img src="${item.gambar_url}" alt="${item.judul}" class="w-full h-32 object-cover">
+          <div class="p-2 bg-white flex flex-col justify-between flex-1">
+            <div>
+              <span class="text-[10px] bg-emerald-50 text-emerald-700 font-semibold px-1.5 py-0.5 rounded">${item.kategori}</span>
+              <p class="text-xs font-medium text-gray-800 line-clamp-2 mt-1 leading-tight">${item.judul}</p>
+            </div>
+            <button onclick="deleteGaleri(${item.id})" class="mt-2 text-red-500 hover:text-red-700 text-[11px] font-semibold text-right">
+              Hapus Foto
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    document.getElementById('galeriForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitGaleriBtn');
+      const fileInput = document.getElementById('fileGaleri');
+
+      if (!fileInput.files.length) {
+        alert('Silakan pilih file foto terlebih dahulu.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Mengunggah Foto...';
+
+      const file = fileInput.files[0];
+      const fileExt = file.name.split('.').pop();
+      const cleanFileName = `galeri_${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
+
+      const { error: uploadError } = await db.storage.from('berita-images').upload(cleanFileName, file);
+      if (uploadError) {
+        alert('Gagal unggah foto galeri: ' + uploadError.message);
+        btn.disabled = false;
+        btn.textContent = 'Unggah ke Galeri';
+        return;
+      }
+
+      const { data: publicUrlData } = db.storage.from('berita-images').getPublicUrl(cleanFileName);
+
+      const { error: insertError } = await db.from('galeri').insert([{
+        judul: document.getElementById('judulGaleri').value,
+        kategori: document.getElementById('kategoriGaleri').value,
+        gambar_url: publicUrlData.publicUrl
+      }]);
+
+      if (!insertError) {
+        document.getElementById('galeriForm').reset();
+        fetchGaleri();
+      } else {
+        alert('Gagal mencatat data galeri: ' + insertError.message);
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Unggah ke Galeri';
+    });
+
+    async function deleteGaleri(id) {
+      if (confirm('Hapus foto ini dari galeri sekolah?')) {
+        await db.from('galeri').delete().eq('id', id);
+        fetchGaleri();
+      }
+    }
+
+    fetchBerita();
+  </script>
+</body>
+</html>

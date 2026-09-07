@@ -1,1 +1,618 @@
-Halo
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMA Negeri 1 Cidahu | Religius, Unggul, Berakhlakul Karimah & Berintegritas</title>
+  <!-- TAMBAHKAN FAVICON DI SINI -->
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dq4snx0ml/image/upload/v1762918483/logosma_ppjhiz.png">
+  <meta name="description" content="Website Resmi SMAN 1 Cidahu, Kab. Kuningan, Jawa Barat. Mewujudkan insan yang religius, unggul, berakhlakul karimah, dan berintegritas.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- Supabase JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen">
+
+  <!-- TOP BAR INFORMASI RESMI -->
+  <aside aria-label="Informasi Kontak Cepat" class="bg-brand-900 text-slate-200 text-xs py-2 px-4 border-b border-brand-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div class="flex flex-wrap items-center gap-4">
+        <span class="flex items-center gap-1.5">
+          <i class="ph ph-phone text-amber-400"></i> (0232) 870212
+        </span>
+        <span class="flex items-center gap-1.5">
+          <i class="ph ph-envelope text-amber-400"></i> smansatucidahu@gmail.com
+        </span>
+        <span class="hidden md:flex items-center gap-1.5">
+          <i class="ph ph-map-pin text-amber-400"></i> Cidahu, Kab. Kuningan
+        </span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="bg-amber-500 text-slate-900 font-bold px-2 py-0.5 rounded text-[11px] uppercase tracking-wider">
+          Akreditasi A
+        </span>
+        <span class="text-slate-300">NPSN: 20212953</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- NAVBAR UTAMA -->
+  <header class="bg-white/95 backdrop-blur shadow-sm sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex justify-between items-center">
+      <a href="#" class="flex items-center gap-3">
+        <!-- LOGO SEKOLAH ASLI -->
+  <img 
+    src="https://res.cloudinary.com/dq4snx0ml/image/upload/v1762918483/logosma_ppjhiz.png" 
+    alt="Logo SMAN 1 Cidahu" 
+    class="w-11 h-11 object-contain drop-shadow-sm"
+  >
+        <div>
+          <span class="block text-lg font-black text-brand-900 leading-none">SMAN 1 CIDAHU</span>
+          <span class="text-xs text-slate-500 font-medium">Kabupaten Kuningan, Jawa Barat</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 font-medium text-sm text-slate-600">
+        <a href="#beranda" class="hover:text-brand-700 transition">Beranda</a>
+        <a href="#sambutan" class="hover:text-brand-700 transition">Sambutan</a>
+        <a href="#visimisi" class="hover:text-brand-700 transition">Visi & Misi</a>
+        <a href="#galeri" class="hover:text-brand-700 transition">Galeri</a>
+        <a href="#berita" class="hover:text-brand-700 transition">Kabar Sekolah</a>
+        <a href="#profil" class="hover:text-brand-700 transition">Profil & Legalitas</a>
+        <a href="#kontak" class="hover:text-brand-700 transition">Kontak</a>
+      </nav>
+
+
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="beranda" class="relative bg-gradient-to-br from-brand-900 via-brand-800 to-slate-900 text-white py-20 lg:py-24 px-4 overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <div class="max-w-5xl mx-auto text-center relative z-10">
+      <span class="inline-block bg-white/10 text-brand-100 text-xs font-semibold px-4 py-1.5 rounded-full mb-5 backdrop-blur-sm border border-white/15">
+        Religius • Unggul • Akhlakul Karimah • Berintegritas
+      </span>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-6 leading-tight">
+        Mencetak Generasi Berakhlak Mulia, Adaptif IPTEK, dan Berdaya Saing Global
+      </h1>
+      <p class="text-base sm:text-lg text-slate-200 max-w-2xl mx-auto mb-8 font-light">
+        Selamat datang di website resmi SMA Negeri 1 Cidahu. Kami berikhtiar mendidik tunas bangsa melalui lingkungan belajar yang kondusif, berwawasan lingkungan hidup, dan berlandaskan ketaqwaan kepada Tuhan Yang Maha Esa.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="#galeri" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-xl shadow-lg transition text-sm flex items-center gap-2">
+          Lihat Dokumentasi Kegiatan <i class="ph ph-camera"></i>
+        </a>
+        <a href="#visimisi" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium px-6 py-3 rounded-xl transition text-sm">
+          Komitmen Visi Misi
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHT STATISTIK KILAT -->
+  <section class="max-w-7xl mx-auto px-4 -mt-10 relative z-20">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-4">
+        <div class="w-12 h-12 bg-blue-50 text-blue-700 rounded-xl flex items-center justify-center text-2xl">
+          <i class="ph ph-shield-check"></i>
+        </div>
+        <div>
+          <p class="text-xs text-slate-400 font-semibold uppercase">Akreditasi</p>
+          <p class="text-xl font-bold text-slate-800">A (Unggul)</p>
+        </div>
+      </div>
+      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-4">
+        <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-2xl">
+          <i class="ph ph-identification-card"></i>
+        </div>
+        <div>
+          <p class="text-xs text-slate-400 font-semibold uppercase">NPSN</p>
+          <p class="text-xl font-bold text-slate-800">20212953</p>
+        </div>
+      </div>
+      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-4">
+        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-2xl">
+          <i class="ph ph-plant"></i>
+        </div>
+        <div>
+          <p class="text-xs text-slate-400 font-semibold uppercase">Ekologi</p>
+          <p class="text-xl font-bold text-slate-800">Green School</p>
+        </div>
+      </div>
+      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-4">
+        <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-2xl">
+          <i class="ph ph-graduation-cap"></i>
+        </div>
+        <div>
+          <p class="text-xs text-slate-400 font-semibold uppercase">Jenjang</p>
+          <p class="text-xl font-bold text-slate-800">SMA / DIKMEN</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAMBUTAN KEPALA SEKOLAH -->
+  <section id="sambutan" class="pt-20 pb-10 px-4 max-w-7xl mx-auto">
+    <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-slate-200/80">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div class="lg:col-span-4 flex flex-col items-center text-center">
+          <div class="relative mb-4">
+            <div class="w-48 h-56 sm:w-56 sm:h-64 rounded-2xl overflow-hidden shadow-md bg-slate-100 border-4 border-white ring-2 ring-brand-100 flex items-center justify-center">
+              <img 
+                src="https://res.cloudinary.com/dq4snx0ml/image/upload/v1788794814/kepsek_cywpys.jpg" 
+                alt="Kepala Sekolah SMA Negeri 1 Cidahu" 
+                class="w-full h-full object-cover"
+              >
+            </div>
+            <div class="absolute -bottom-3 bg-brand-700 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow">
+              Kepala Sekolah
+            </div>
+          </div>
+          <h3 class="text-lg font-bold text-slate-800 mt-2">Abdul Rofik, M.Pd.</h3>
+          <p class="text-xs text-slate-500">NIP. 196707301991011001</p>
+        </div>
+
+        <div class="lg:col-span-8">
+          <div class="inline-flex items-center gap-2 bg-brand-50 text-brand-700 text-xs font-semibold px-3 py-1 rounded-full mb-3">
+            <i class="ph ph-chat-circle-dots text-base"></i> Kata Sambutan
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-4 leading-snug">
+            Membangun Karakter Religius, Menguasai IPTEK, Menjaga Harmoni Lingkungan
+          </h2>
+          <div class="space-y-3 text-sm sm:text-base text-slate-600 leading-relaxed font-light">
+            <p><em>Assalamu’alaikum Warahmatullahi Wabarakatuh, Sampurasun.</em></p>
+            <p>
+              Puji dan syukur senantiasa kita panjatkan ke hadirat Allah SWT, Tuhan Yang Maha Esa. Selamat datang di portal resmi SMA Negeri 1 Cidahu, wadah komunikasi dan representasi dinamika sekolah kami tercinta di Kabupaten Kuningan.
+            </p>
+            <p>
+              Sesuai dengan visi kami untuk mewujudkan insan yang <strong>Religius, Unggul, Berakhlakul Karimah, dan Berintegritas</strong>, SMAN 1 Cidahu terus bergerak mewujudkan ekosistem belajar yang sehat, demokratis, dan berintegritas tinggi. Kami membekali peserta didik dengan kecakapan sains dan teknologi (IPTEK) berstandar nasional maupun internasional, sembari menanamkan kecintaan pada kelestarian alam lewat program <em>Green-School</em> berbasis kearifan lokal.
+            </p>
+            <p>
+              Dengan sinergi pendidik yang profesional serta manajemen sekolah yang transparan dan akuntabel, kami siap mengantarkan generasi muda Cidahu menjadi teladan bagi masyarakat dan bangsa.
+            </p>
+            <p class="font-medium text-slate-800 pt-2"><em>Wassalamu’alaikum Warahmatullahi Wabarakatuh.</em></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISI & MISI SEKOLAH -->
+  <section id="visimisi" class="py-12 px-4 max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <span class="text-brand-600 text-xs font-bold uppercase tracking-wider">Arah & Komitmen</span>
+      <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-1 mb-2">Visi & Misi Sekolah</h2>
+      <p class="text-sm text-slate-500">Landasan kami dalam mencetak insan berilmu, bertakwa, dan berdaya saing.</p>
+    </div>
+
+    <!-- Kotak Visi -->
+    <div class="bg-gradient-to-r from-brand-900 to-brand-800 text-white rounded-3xl p-8 sm:p-10 shadow-md mb-8 relative overflow-hidden">
+      <div class="absolute right-0 top-0 translate-x-8 -translate-y-8 text-white/5 pointer-events-none">
+        <i class="ph ph-target text-[200px]"></i>
+      </div>
+      <div class="relative z-10 max-w-3xl">
+        <div class="inline-flex items-center gap-2 bg-amber-400/20 text-amber-300 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-amber-300/30">
+          <i class="ph ph-sparkle"></i> VISI KAMI
+        </div>
+        <blockquote class="text-xl sm:text-2xl lg:text-3xl font-bold leading-relaxed text-amber-50">
+          “Mewujudkan SMAN 1 CIDAHU yang Religius, Unggul dan Akhlakul Qarimah dan Berintegritas.”
+        </blockquote>
+      </div>
+    </div>
+
+    <!-- Kotak Misi -->
+    <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-slate-200/80">
+      <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full mb-3 border border-emerald-200">
+        <i class="ph ph-compass"></i> MISI PENDIDIKAN
+      </div>
+      <h3 class="text-xl font-bold text-slate-900 mb-6">Langkah Strategis Pencapaian Visi</h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-brand-200 transition">
+          <span class="w-8 h-8 rounded-xl bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-sm shrink-0">1</span>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Mewujudkan kondisi sekolah yang kondusif, sehat, dinamis, demokratis, dan jujur yang dilandasi keimanan dan ketaqwaan serta akhlakul kharimah.
+          </p>
+        </div>
+
+        <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-brand-200 transition">
+          <span class="w-8 h-8 rounded-xl bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-sm shrink-0">2</span>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Menghasilkan lulusan yang beriman dan bertakwa kepada Tuhan Yang Maha Esa.
+          </p>
+        </div>
+
+        <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-brand-200 transition">
+          <span class="w-8 h-8 rounded-xl bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-sm shrink-0">3</span>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Menghasilkan lulusan yang memiliki kompetensi akademik berstandar nasional/internasional.
+          </p>
+        </div>
+
+        <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-brand-200 transition">
+          <span class="w-8 h-8 rounded-xl bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-sm shrink-0">4</span>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Melakukan adaptasi dan pengembangan IPTEK untuk mempersiapkan siswa supaya memiliki daya saing yang tinggi.
+          </p>
+        </div>
+
+        <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-brand-200 transition">
+          <span class="w-8 h-8 rounded-xl bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-sm shrink-0">5</span>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Meningkatkan kualitas manajemen berbasis sekolah yang transparan dan akuntabel.
+          </p>
+        </div>
+
+        <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-brand-200 transition">
+          <span class="w-8 h-8 rounded-xl bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-sm shrink-0">6</span>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Meningkatkan kualitas tenaga pendidik dan tenaga kependidikan melalui Pendidikan dan Pelatihan.
+          </p>
+        </div>
+
+        <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-brand-200 transition md:col-span-2">
+          <span class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center text-sm shrink-0">7</span>
+          <p class="text-sm text-slate-700 leading-relaxed">
+            Menjaga kelestarian lingkungan melalui program Green-school/Green-ecology berbasis budaya dan kearifan lokal.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SEKSI GALERI & DOKUMENTASI KEGIATAN ================= -->
+  <section id="galeri" class="py-16 bg-white border-t border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+        <div>
+          <span class="text-brand-600 text-xs font-bold uppercase tracking-wider">Potret Sekolah</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Dokumentasi & Galeri Kegiatan</h2>
+        </div>
+        <p class="text-xs text-slate-500">Merekam momen kebersamaan, kreativitas, dan prestasi siswa</p>
+      </div>
+
+      <!-- Grid Foto Galeri -->
+      <div id="galeriGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <!-- Skeleton Loading Galeri -->
+        <div class="h-48 bg-slate-100 rounded-2xl animate-pulse"></div>
+        <div class="h-48 bg-slate-100 rounded-2xl animate-pulse"></div>
+        <div class="h-48 bg-slate-100 rounded-2xl animate-pulse"></div>
+        <div class="h-48 bg-slate-100 rounded-2xl animate-pulse"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEED BERITA DARI SUPABASE -->
+  <section id="berita" class="py-16 bg-slate-100/70 border-y border-slate-200/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+        <div>
+          <span class="text-brand-600 text-xs font-bold uppercase tracking-wider">Publikasi Informasi</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Prestasi, Kegiatan & Pengumuman</h2>
+        </div>
+        <p class="text-xs text-slate-500">Pemberitaan terbuka seputar aktivitas akademik dan kesiswaan</p>
+      </div>
+
+      <div id="beritaGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200/60 animate-pulse">
+          <div class="w-full h-44 bg-slate-200 rounded-xl mb-4"></div>
+          <div class="h-4 bg-slate-200 rounded w-1/3 mb-2"></div>
+          <div class="h-6 bg-slate-200 rounded w-3/4 mb-3"></div>
+          <div class="h-12 bg-slate-100 rounded"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFIL & DATA LEGALITAS SEKOLAH -->
+  <section id="profil" class="py-16 px-4 max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">Identitas & Legalitas Sekolah</h2>
+      <p class="text-sm text-slate-500">Transparansi tata kelola dan legalitas terdaftar pada Kementerian Pendidikan Dasar dan Menengah.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200/80">
+        <h3 class="text-lg font-bold text-slate-900 mb-4 pb-3 border-b flex items-center gap-2">
+          <i class="ph ph-info text-brand-600"></i> Informasi Kelembagaan
+        </h3>
+        <dl class="space-y-3 text-sm">
+          <div class="flex justify-between py-1 border-b border-slate-100">
+            <dt class="text-slate-500">Nama Resmi</dt>
+            <dd class="font-semibold text-slate-800">SMA NEGERI 1 CIDAHU</dd>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-100">
+            <dt class="text-slate-500">Kementerian Pembina</dt>
+            <dd class="font-semibold text-slate-800">Kementerian Pendidikan Dasar dan Menengah</dd>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-100">
+            <dt class="text-slate-500">Naungan</dt>
+            <dd class="font-semibold text-slate-800">Pemerintah Daerah</dd>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-100">
+            <dt class="text-slate-500">Status & Bentuk</dt>
+            <dd class="font-semibold text-slate-800">Negeri / SMA (Dikmen)</dd>
+          </div>
+          <div class="flex justify-between py-1">
+            <dt class="text-slate-500">Akreditasi</dt>
+            <dd class="font-bold text-emerald-600">A</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200/80">
+        <h3 class="text-lg font-bold text-slate-900 mb-4 pb-3 border-b flex items-center gap-2">
+          <i class="ph ph-file-text text-brand-600"></i> Izin Operasional
+        </h3>
+        <dl class="space-y-3 text-sm">
+          <div class="flex justify-between py-1 border-b border-slate-100">
+            <dt class="text-slate-500">Nomor SK Izin</dt>
+            <dd class="font-semibold text-slate-800 text-right">422/KPTS-146-Sosial/2001</dd>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-100">
+            <dt class="text-slate-500">TMT SK Operasional</dt>
+            <dd class="font-semibold text-slate-800">06 April 2001</dd>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-100">
+            <dt class="text-slate-500">Tanggal Verifikasi SK</dt>
+            <dd class="font-semibold text-slate-800">10-03-2022</dd>
+          </div>
+          <div class="flex justify-between py-1">
+            <dt class="text-slate-500">Status Wilayah</dt>
+            <dd class="font-semibold text-slate-800">Kab. Kuningan, Jawa Barat</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOKASI & KONTAK -->
+  <section id="kontak" class="py-16 px-4 max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">Lokasi & Kontak Sekolah</h2>
+      <p class="text-sm text-slate-500">Silakan kunjungi kampus kami yang asri atau hubungi kontak resmi di bawah ini.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="lg:col-span-5 bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+        <div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Alamat Kampus</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            <strong>SMA Negeri 1 Cidahu</strong><br>
+            Jl. Kertawinangun No. 09, Desa/Kel. Cidahu<br>
+            Kecamatan Cidahu, Kabupaten Kuningan<br>
+            Provinsi Jawa Barat
+          </p>
+        </div>
+
+        <div class="space-y-3 border-t pt-4 text-sm">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-brand-50 text-brand-600 flex items-center justify-center shrink-0">
+              <i class="ph ph-phone"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-400">Telepon Kantor</p>
+              <a href="tel:0232870212" class="font-medium text-slate-800 hover:text-brand-600">(0232) 870212</a>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-brand-50 text-brand-600 flex items-center justify-center shrink-0">
+              <i class="ph ph-envelope"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-400">Email Resmi</p>
+              <a href="mailto:smansatucidahu@gmail.com" class="font-medium text-slate-800 hover:text-brand-600">smansatucidahu@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-brand-50 text-brand-600 flex items-center justify-center shrink-0">
+              <i class="ph ph-globe"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-400">Domain Website</p>
+              <span class="font-medium text-slate-800">sman1cidahu.sch.id</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden h-[380px]">
+        <iframe
+          title="Peta Lokasi SMAN 1 Cidahu"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=-6.981000,108.645800&hl=id&z=15&output=embed">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL BACA LENGKAP BERITA -->
+  <div id="beritaModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative">
+      <button onclick="tutupModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100">✕</button>
+      <div id="modalGambarWadah" class="mb-4 hidden">
+        <img id="modalGambar" src="" alt="" class="w-full h-64 object-cover rounded-xl shadow-sm">
+      </div>
+      <p id="modalTanggal" class="text-xs text-brand-600 font-semibold mb-2"></p>
+      <h3 id="modalJudul" class="text-xl sm:text-2xl font-bold text-slate-900 mb-4 leading-snug"></h3>
+      <div id="modalKonten" class="text-sm text-slate-700 whitespace-pre-line leading-relaxed border-t pt-4"></div>
+    </div>
+  </div>
+
+  <!-- MODAL LIGHTBOX FOTO GALERI -->
+  <div id="galeriLightbox" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="max-w-3xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl relative">
+      <button onclick="tutupLightbox()" class="absolute top-3 right-3 bg-black/50 hover:bg-black/80 text-white rounded-full w-8 h-8 flex items-center justify-center transition">✕</button>
+      <img id="lightboxImg" src="" alt="" class="w-full max-h-[70vh] object-contain bg-slate-900">
+      <div class="p-4 bg-white">
+        <span id="lightboxKategori" class="text-[11px] font-bold bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-md"></span>
+        <h4 id="lightboxJudul" class="text-base font-bold text-slate-900 mt-2"></h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto bg-slate-900 text-slate-400 text-xs py-8 px-4 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
+      <div>
+        <p class="font-semibold text-slate-200 text-sm">SMA NEGERI 1 CIDAHU</p>
+        <p class="mt-1">Jl. Kertawinangun No. 09, Cidahu, Kabupaten Kuningan, Jawa Barat 45595</p>
+      </div>
+      <div class="flex items-center gap-4">
+
+
+        <span>© 2026 SMAN 1 Cidahu. Hak Cipta Dilindungi.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT SUPABASE & LOGIKA DATA -->
+  <script src="./js/supabase.js"></script>
+  <script>
+    let beritaDataGlobal = [];
+    let galeriDataGlobal = [];
+
+    // 1. Fetch Berita
+    async function fetchBeritaPublik() {
+      const container = document.getElementById('beritaGrid');
+      try {
+        const { data, error } = await db.from('berita').select('*').order('created_at', { ascending: false });
+        if (error) throw error;
+        beritaDataGlobal = data || [];
+
+        if (!beritaDataGlobal.length) {
+          container.innerHTML = `
+            <div class="col-span-full text-center py-10 bg-white rounded-2xl border border-slate-200">
+              <p class="text-xs text-slate-500">Belum ada berita yang diterbitkan.</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = beritaDataGlobal.map((item, index) => `
+          <article class="bg-white rounded-2xl shadow-sm hover:shadow-md transition border border-slate-200/80 overflow-hidden flex flex-col">
+            ${item.gambar_url ? `
+              <div class="h-48 overflow-hidden bg-slate-100">
+                <img src="${item.gambar_url}" alt="${item.judul}" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+              </div>
+            ` : '<div class="h-48 bg-slate-100 flex items-center justify-center text-slate-400"><i class="ph ph-image text-4xl"></i></div>'}
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <span class="text-[11px] font-semibold text-brand-600 bg-brand-50 px-2.5 py-1 rounded-md">
+                  ${new Date(item.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                </span>
+                <h3 class="font-bold text-slate-900 mt-2.5 mb-2 text-base leading-snug line-clamp-2">${item.judul}</h3>
+                <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed">${item.ringkasan || item.konten}</p>
+              </div>
+              <div class="pt-4 mt-4 border-t border-slate-100 flex justify-end">
+                <button onclick="bukaModal(${index})" class="text-xs font-bold text-brand-700 hover:text-brand-900 flex items-center gap-1">
+                  Baca Selengkapnya <i class="ph ph-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </article>
+        `).join('');
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // 2. Fetch Galeri
+    async function fetchGaleriPublik() {
+      const container = document.getElementById('galeriGrid');
+      try {
+        const { data, error } = await db.from('galeri').select('*').order('created_at', { ascending: false });
+        if (error) throw error;
+        galeriDataGlobal = data || [];
+
+        if (!galeriDataGlobal.length) {
+          container.innerHTML = `
+            <div class="col-span-full text-center py-10 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
+              <i class="ph ph-camera text-3xl text-slate-400 mb-1"></i>
+              <p class="text-xs text-slate-500">Belum ada dokumentasi foto yang diunggah.</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = galeriDataGlobal.map((item, index) => `
+          <div onclick="bukaLightbox(${index})" class="group cursor-pointer relative h-48 sm:h-56 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition">
+            <img src="${item.gambar_url}" alt="${item.judul}" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent flex flex-col justify-end p-3.5 opacity-90 group-hover:opacity-100 transition">
+              <span class="text-[10px] uppercase font-bold text-amber-300">${item.kategori}</span>
+              <p class="text-xs font-semibold text-white line-clamp-2 leading-tight mt-0.5">${item.judul}</p>
+            </div>
+          </div>
+        `).join('');
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // Modal Berita
+    function bukaModal(index) {
+      const b = beritaDataGlobal[index];
+      if (!b) return;
+      document.getElementById('modalJudul').textContent = b.judul;
+      document.getElementById('modalTanggal').textContent = new Date(b.created_at).toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+      document.getElementById('modalKonten').textContent = b.konten;
+      const w = document.getElementById('modalGambarWadah');
+      const img = document.getElementById('modalGambar');
+      if (b.gambar_url) { img.src = b.gambar_url; w.classList.remove('hidden'); } else { w.classList.add('hidden'); }
+      document.getElementById('beritaModal').classList.remove('hidden');
+    }
+    function tutupModal() { document.getElementById('beritaModal').classList.add('hidden'); }
+
+    // Lightbox Galeri
+    function bukaLightbox(index) {
+      const g = galeriDataGlobal[index];
+      if (!g) return;
+      document.getElementById('lightboxImg').src = g.gambar_url;
+      document.getElementById('lightboxJudul').textContent = g.judul;
+      document.getElementById('lightboxKategori').textContent = g.kategori;
+      document.getElementById('galeriLightbox').classList.remove('hidden');
+    }
+    function tutupLightbox() { document.getElementById('galeriLightbox').classList.add('hidden'); }
+
+    // Event Tutup Modal jika klik luar
+    window.addEventListener('click', (e) => {
+      if (e.target === document.getElementById('beritaModal')) tutupModal();
+      if (e.target === document.getElementById('galeriLightbox')) tutupLightbox();
+    });
+
+    fetchBeritaPublik();
+    fetchGaleriPublik();
+  </script>
+</body>
+</html>
