@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SMA Negeri 1 Cidahu | Religius, Unggul, Berakhlakul Karimah & Berintegritas</title>
-  <!-- TAMBAHKAN FAVICON DI SINI -->
+  <!-- FAVICON RESMI SEKOLAH -->
   <link rel="icon" type="image/png" href="https://res.cloudinary.com/dq4snx0ml/image/upload/v1762918483/logosma_ppjhiz.png">
   <meta name="description" content="Website Resmi SMAN 1 Cidahu, Kab. Kuningan, Jawa Barat. Mewujudkan insan yang religius, unggul, berakhlakul karimah, dan berintegritas.">
 
@@ -63,12 +63,11 @@
   <header class="bg-white/95 backdrop-blur shadow-sm sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex justify-between items-center">
       <a href="#" class="flex items-center gap-3">
-        <!-- LOGO SEKOLAH ASLI -->
-  <img 
-    src="https://res.cloudinary.com/dq4snx0ml/image/upload/v1762918483/logosma_ppjhiz.png" 
-    alt="Logo SMAN 1 Cidahu" 
-    class="w-11 h-11 object-contain drop-shadow-sm"
-  >
+        <img 
+          src="https://res.cloudinary.com/dq4snx0ml/image/upload/v1762918483/logosma_ppjhiz.png" 
+          alt="Logo SMAN 1 Cidahu" 
+          class="w-11 h-11 object-contain drop-shadow-sm"
+        >
         <div>
           <span class="block text-lg font-black text-brand-900 leading-none">SMAN 1 CIDAHU</span>
           <span class="text-xs text-slate-500 font-medium">Kabupaten Kuningan, Jawa Barat</span>
@@ -84,8 +83,6 @@
         <a href="#profil" class="hover:text-brand-700 transition">Profil & Legalitas</a>
         <a href="#kontak" class="hover:text-brand-700 transition">Kontak</a>
       </nav>
-
-
     </div>
   </header>
 
@@ -284,7 +281,7 @@
     </div>
   </section>
 
-  <!-- ================= SEKSI GALERI & DOKUMENTASI KEGIATAN ================= -->
+  <!-- SEKSI GALERI & DOKUMENTASI KEGIATAN -->
   <section id="galeri" class="py-16 bg-white border-t border-slate-200/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
@@ -457,16 +454,32 @@
     </div>
   </section>
 
-  <!-- MODAL BACA LENGKAP BERITA -->
+  <!-- MODAL BACA LENGKAP BERITA DENGAN INTERAKSI LIKE & HITUNGAN VIEW -->
   <div id="beritaModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative">
+    <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative">
       <button onclick="tutupModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100">✕</button>
+      
       <div id="modalGambarWadah" class="mb-4 hidden">
-        <img id="modalGambar" src="" alt="" class="w-full h-64 object-cover rounded-xl shadow-sm">
+        <img id="modalGambar" src="" alt="" class="w-full h-64 object-cover rounded-2xl shadow-sm">
       </div>
-      <p id="modalTanggal" class="text-xs text-brand-600 font-semibold mb-2"></p>
+      
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+        <p id="modalTanggal" class="text-xs text-brand-600 font-semibold"></p>
+        <span id="modalViewsCount" class="text-xs text-slate-400 font-medium flex items-center gap-1">
+          <i class="ph ph-eye"></i> 0 kali dibaca
+        </span>
+      </div>
+
       <h3 id="modalJudul" class="text-xl sm:text-2xl font-bold text-slate-900 mb-4 leading-snug"></h3>
       <div id="modalKonten" class="text-sm text-slate-700 whitespace-pre-line leading-relaxed border-t pt-4"></div>
+
+      <!-- Tombol Like Interaktif -->
+      <div class="pt-4 mt-6 border-t border-slate-100 flex items-center justify-between">
+        <span class="text-xs text-slate-400">Dukung kabar sekolah ini:</span>
+        <button id="modalLikeBtn" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 font-bold text-xs transition border border-rose-100 shadow-sm">
+          <i class="ph ph-heart text-base"></i> Suka Berita (<span id="modalLikeCount">0</span>)
+        </button>
+      </div>
     </div>
   </div>
 
@@ -490,8 +503,6 @@
         <p class="mt-1">Jl. Kertawinangun No. 09, Cidahu, Kabupaten Kuningan, Jawa Barat 45595</p>
       </div>
       <div class="flex items-center gap-4">
-
-
         <span>© 2026 SMAN 1 Cidahu. Hak Cipta Dilindungi.</span>
       </div>
     </div>
@@ -529,10 +540,18 @@
             ` : '<div class="h-48 bg-slate-100 flex items-center justify-center text-slate-400"><i class="ph ph-image text-4xl"></i></div>'}
             <div class="p-5 flex-1 flex flex-col justify-between">
               <div>
-                <span class="text-[11px] font-semibold text-brand-600 bg-brand-50 px-2.5 py-1 rounded-md">
-                  ${new Date(item.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
-                </span>
-                <h3 class="font-bold text-slate-900 mt-2.5 mb-2 text-base leading-snug line-clamp-2">${item.judul}</h3>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="text-[11px] font-semibold text-brand-600 bg-brand-50 px-2.5 py-1 rounded-md">
+                    ${new Date(item.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  </span>
+                  <!-- Statistik Ringkas di Kartu Berita -->
+                  <div class="flex items-center gap-2.5 text-slate-400 text-xs font-medium">
+                    <span class="flex items-center gap-1"><i class="ph ph-eye"></i> ${item.views || 0}</span>
+                    <span class="flex items-center gap-1 text-rose-500"><i class="ph ph-heart"></i> ${item.likes || 0}</span>
+                  </div>
+                </div>
+
+                <h3 class="font-bold text-slate-900 mb-2 text-base leading-snug line-clamp-2">${item.judul}</h3>
                 <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed">${item.ringkasan || item.konten}</p>
               </div>
               <div class="pt-4 mt-4 border-t border-slate-100 flex justify-end">
@@ -580,21 +599,58 @@
       }
     }
 
-    // Modal Berita
-    function bukaModal(index) {
+    // 3. Modal Detail Berita + Auto Increment Views + Tombol Like
+    async function bukaModal(index) {
       const b = beritaDataGlobal[index];
       if (!b) return;
+
+      // Panggil fungsi RPC untuk menambah hitungan pembaca secara aman
+      try {
+        await db.rpc('increment_views', { row_id: b.id });
+        b.views = (b.views || 0) + 1;
+      } catch (err) {
+        console.warn('RPC increment_views belum diaktifkan:', err);
+      }
+
       document.getElementById('modalJudul').textContent = b.judul;
       document.getElementById('modalTanggal').textContent = new Date(b.created_at).toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+      document.getElementById('modalViewsCount').innerHTML = `<i class="ph ph-eye"></i> ${b.views || 1} kali dibaca`;
       document.getElementById('modalKonten').textContent = b.konten;
+      document.getElementById('modalLikeCount').textContent = b.likes || 0;
+
       const w = document.getElementById('modalGambarWadah');
       const img = document.getElementById('modalGambar');
-      if (b.gambar_url) { img.src = b.gambar_url; w.classList.remove('hidden'); } else { w.classList.add('hidden'); }
+      if (b.gambar_url) { 
+        img.src = b.gambar_url; 
+        w.classList.remove('hidden'); 
+      } else { 
+        w.classList.add('hidden'); 
+      }
+
+      // Atur tombol Like
+      const likeBtn = document.getElementById('modalLikeBtn');
+      likeBtn.className = "flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 font-bold text-xs transition border border-rose-100 shadow-sm cursor-pointer";
+      likeBtn.onclick = async () => {
+        try {
+          await db.rpc('increment_likes', { row_id: b.id });
+          b.likes = (b.likes || 0) + 1;
+          document.getElementById('modalLikeCount').textContent = b.likes;
+          likeBtn.className = "flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-600 text-white font-bold text-xs transition shadow-sm cursor-default";
+          likeBtn.onclick = null; // Kunci klik ganda
+        } catch (err) {
+          console.warn('RPC increment_likes belum diaktifkan:', err);
+        }
+      };
+
       document.getElementById('beritaModal').classList.remove('hidden');
     }
-    function tutupModal() { document.getElementById('beritaModal').classList.add('hidden'); }
 
-    // Lightbox Galeri
+    function tutupModal() { 
+      document.getElementById('beritaModal').classList.add('hidden'); 
+      fetchBeritaPublik(); // Refresh angka view & like di kartu depan
+    }
+
+    // 4. Lightbox Galeri
     function bukaLightbox(index) {
       const g = galeriDataGlobal[index];
       if (!g) return;
@@ -603,9 +659,12 @@
       document.getElementById('lightboxKategori').textContent = g.kategori;
       document.getElementById('galeriLightbox').classList.remove('hidden');
     }
-    function tutupLightbox() { document.getElementById('galeriLightbox').classList.add('hidden'); }
 
-    // Event Tutup Modal jika klik luar
+    function tutupLightbox() { 
+      document.getElementById('galeriLightbox').classList.add('hidden'); 
+    }
+
+    // Event Tutup Modal saat klik luar
     window.addEventListener('click', (e) => {
       if (e.target === document.getElementById('beritaModal')) tutupModal();
       if (e.target === document.getElementById('galeriLightbox')) tutupLightbox();
