@@ -11,7 +11,7 @@
     <!-- Meta Tag Open Graph (Preview WhatsApp) -->
     <meta property="og:title" content="Pengaduan Sarana dan Prasarana SMAN 1 Cidahu">
     <meta property="og:description" content="Portal pelaporan dan pantauan tindak lanjut sarana prasarana sekolah SMAN 1 Cidahu.">
-    <meta property="og:image" content="img/logo.png">
+    <meta property="og:image" content="https://username-anda.github.io/nama-repo/logo.png">
     <meta property="og:type" content="website">
 
     <style>
@@ -26,6 +26,8 @@
             --border: #e2e8f0;
             --pending-bg: #fef3c7;
             --pending-text: #b45309;
+            --process-bg: #e0f2fe;
+            --process-text: #0369a1;
             --done-bg: #dcfce7;
             --done-text: #15803d;
         }
@@ -113,7 +115,7 @@
 
         /* Main Container */
         .container {
-            max-width: 1050px;
+            max-width: 1100px;
             margin: -35px auto 40px auto;
             padding: 0 16px;
         }
@@ -227,6 +229,24 @@
             background-color: #f8fafc;
         }
 
+        .sub-text {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: #f1f5f9;
+            color: #475569;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
         /* Badge Status */
         .status-badge {
             display: inline-block;
@@ -240,6 +260,11 @@
         .status-pending {
             background-color: var(--pending-bg);
             color: var(--pending-text);
+        }
+
+        .status-process {
+            background-color: var(--process-bg);
+            color: var(--process-text);
         }
 
         .status-done {
@@ -297,7 +322,7 @@
             </div>
             <div class="stat-card">
                 <div class="stat-number pending" id="pendingCount">0</div>
-                <div class="stat-label">Masih Pending</div>
+                <div class="stat-label">Pending / Diproses</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number done" id="doneCount">0</div>
@@ -310,10 +335,10 @@
             <div class="panel-header">
                 <h2>Rekap Laporan Sarana & Prasarana</h2>
                 <div class="controls">
-                    <input type="text" id="searchInput" placeholder="Cari lokasi / kerusakan...">
+                    <input type="text" id="searchInput" placeholder="Cari ruangan, kategori, kerusakan...">
                     <select id="statusFilter">
                         <option value="all">Semua Status</option>
-                        <option value="pending">Pending</option>
+                        <option value="pending">Pending / Diproses</option>
                         <option value="done">Sudah Ditangani</option>
                     </select>
                 </div>
@@ -325,10 +350,10 @@
                         <tr>
                             <th>No</th>
                             <th>Tanggal</th>
-                            <th>Pelapor</th>
-                            <th>Lokasi / Sarpras</th>
-                            <th>Detail Permasalahan</th>
-                            <th>Status</th>
+                            <th>Status Pelapor</th>
+                            <th>Lokasi & Titik Ruangan</th>
+                            <th>Kategori & Detail Kerusakan</th>
+                            <th>Status Tindak Lanjut</th>
                         </tr>
                     </thead>
                     <tbody id="reportTableBody">
@@ -347,20 +372,34 @@
     </footer>
 
     <script>
-        // GANTI URL DI BAWAH INI DENGAN LINK CSV DARI GOOGLE SHEETS ANDA
-        // (File -> Share -> Publish to web -> CSV)
+        // TEMPEL LINK CSV DARI GOOGLE SHEETS ANDA DI BAWAH INI
         const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQzxF8BCdsuenBNf4NK_Q7ORP313R04_sw2wax5WxiSckSdaqZEx5My7pH9uNxJXlha_LSjHlYqIdfY/pub?gid=1380305119&single=true&output=csv"; 
 
-        // Data contoh sementara jika SHEET_CSV_URL belum diisi
+        // Data simulasi sementara sebelum SHEET_CSV_URL diisi
         const sampleData = [
-            { tanggal: "15 Nov 2026", pelapor: "Siswa XII IPA 1", lokasi: "Ruang Kelas XII IPA 1", masalah: "Proyektor LCD tidak menyala dan kabel HDMI longgar", status: "Sudah Ditangani" },
-            { tanggal: "17 Nov 2026", pelapor: "Guru Piket", lokasi: "Toilet Siswa Putra Lt. 1", masalah: "Kran air patah dan pintu bilik ke-2 sulit dikunci", status: "Pending" },
-            { tanggal: "18 Nov 2026", pelapor: "Siswa XI IPS 2", lokasi: "Lab Komputer 2", masalah: "AC ruang lab kurang dingin / bocor air", status: "Pending" }
+            { 
+                tanggal: "15/11/2026", 
+                statusPelapor: "Siswa", 
+                lokasi: "Ruang Kelas", 
+                titikLokasi: "Kelas XII IPA 1 (Meja Depan)", 
+                kategori: "Elektronik / Kelistrikan",
+                masalah: "Proyektor LCD tidak menyala dan kabel HDMI longgar", 
+                status: "Sudah Ditangani" 
+            },
+            { 
+                tanggal: "17/11/2026", 
+                statusPelapor: "Guru", 
+                lokasi: "Toilet / Sanitasi", 
+                titikLokasi: "Toilet Siswa Putra Lt. 1", 
+                kategori: "Air & Sanitasi",
+                masalah: "Kran air patah dan pintu bilik ke-2 sulit dikunci", 
+                status: "Pending" 
+            }
         ];
 
         let allReports = [];
 
-        // Fungsi parser CSV sederhana yang aman terhadap tanda koma di dalam kutip
+        // Parser CSV aman terhadap tanda koma & baris baru di dalam kolom deskripsi
         function parseCSV(csvText) {
             const rows = [];
             let currentRow = [];
@@ -398,7 +437,6 @@
 
         async function loadReports() {
             if (!SHEET_CSV_URL) {
-                // Gunakan data simulasi jika link CSV belum dipasang
                 allReports = sampleData;
                 renderDashboard();
                 return;
@@ -409,21 +447,42 @@
                 const csvText = await response.text();
                 const rows = parseCSV(csvText);
 
-                // Baris pertama (index 0) adalah header Google Form.
-                // Sesuaikan index kolom di bawah ini dengan urutan pertanyaan di Google Form Anda:
-                // Umumnya: [0] Timestamp, [1] Nama Pelapor, [2] Lokasi, [3] Deskripsi Masalah, [terakhir] Status
+                // Pemetaan indeks sesuai urutan kolom Google Sheets Anda:
+                // [0] Timestamp
+                // [1] Email Address
+                // [2] Nama Lengkap Pelapor
+                // [3] Status Pelapor
+                // [4] Nomor WhatsApp Aktif
+                // [5] Lokasi Kejadian / Ruangan
+                // [6] Keterangan Spesifik Nama Ruangan / Titik Lokasi
+                // [7] Kategori Permasalahan
+                // [8] Tingkat Urgensi / Dampak terhadap KBM
+                // [9] Deskripsi Singkat Kronologi / Kondisi Kerusakan
+                // [10] Foto / Video Bukti
+                // [11] Status Tindak Lanjut
                 allReports = rows.slice(1).map(row => {
-                    const rawStatus = row[row.length - 1] || "";
-                    const isDone = rawStatus.toLowerCase().includes("selesai") || rawStatus.toLowerCase().includes("ditangani");
+                    const rawStatus = (row[11] || "").trim();
+                    const lowerStatus = rawStatus.toLowerCase();
+                    
+                    let normalizedStatus = "Pending";
+                    if (lowerStatus.includes("selesai") || lowerStatus.includes("ditangani") || lowerStatus.includes("done")) {
+                        normalizedStatus = "Sudah Ditangani";
+                    } else if (lowerStatus.includes("proses") || lowerStatus.includes("kerjakan")) {
+                        normalizedStatus = "Diproses";
+                    } else if (rawStatus !== "") {
+                        normalizedStatus = rawStatus;
+                    }
                     
                     return {
                         tanggal: row[0] ? row[0].split(" ")[0] : "-",
-                        pelapor: row[1] || "Anonim",
-                        lokasi: row[2] || "-",
-                        masalah: row[3] || "-",
-                        status: isDone ? "Sudah Ditangani" : "Pending"
+                        statusPelapor: row[3] || "-",
+                        lokasi: row[5] || "-",
+                        titikLokasi: row[6] || "",
+                        kategori: row[7] || "-",
+                        masalah: row[9] || "-",
+                        status: normalizedStatus
                     };
-                }).reverse(); // Laporan terbaru tampil paling atas
+                }).reverse(); // Laporan terbaru berada di urutan paling atas
 
                 renderDashboard();
             } catch (error) {
@@ -449,13 +508,16 @@
             const filtered = allReports.filter(item => {
                 const matchesSearch = 
                     item.lokasi.toLowerCase().includes(searchTerm) || 
+                    item.titikLokasi.toLowerCase().includes(searchTerm) ||
+                    item.kategori.toLowerCase().includes(searchTerm) ||
                     item.masalah.toLowerCase().includes(searchTerm) ||
-                    item.pelapor.toLowerCase().includes(searchTerm);
+                    item.statusPelapor.toLowerCase().includes(searchTerm);
                 
+                const isDone = item.status === "Sudah Ditangani";
                 const matchesStatus = 
                     filterValue === "all" ||
-                    (filterValue === "done" && item.status === "Sudah Ditangani") ||
-                    (filterValue === "pending" && item.status === "Pending");
+                    (filterValue === "done" && isDone) ||
+                    (filterValue === "pending" && !isDone);
 
                 return matchesSearch && matchesStatus;
             });
@@ -467,27 +529,35 @@
             }
 
             tbody.innerHTML = filtered.map((item, index) => {
-                const isDone = item.status === "Sudah Ditangani";
-                const badgeClass = isDone ? "status-done" : "status-pending";
+                let badgeClass = "status-pending";
+                if (item.status === "Sudah Ditangani") {
+                    badgeClass = "status-done";
+                } else if (item.status === "Diproses") {
+                    badgeClass = "status-process";
+                }
 
                 return `
                     <tr>
                         <td>${index + 1}</td>
                         <td style="white-space:nowrap;">${item.tanggal}</td>
-                        <td>${item.pelapor}</td>
-                        <td><strong>${item.lokasi}</strong></td>
-                        <td>${item.masalah}</td>
+                        <td><strong>${item.statusPelapor}</strong></td>
+                        <td>
+                            <strong>${item.lokasi}</strong>
+                            ${item.titikLokasi ? `<span class="sub-text">${item.titikLokasi}</span>` : ""}
+                        </td>
+                        <td>
+                            <span class="category-tag">${item.kategori}</span>
+                            <div>${item.masalah}</div>
+                        </td>
                         <td><span class="status-badge ${badgeClass}">${item.status}</span></td>
                     </tr>
                 `;
             }).join("");
         }
 
-        // Event listener untuk pencarian dan filter real-time
         document.getElementById("searchInput").addEventListener("input", renderDashboard);
         document.getElementById("statusFilter").addEventListener("change", renderDashboard);
 
-        // Jalankan saat halaman dibuka
         loadReports();
     </script>
 
