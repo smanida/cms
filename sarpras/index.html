@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pengaduan Sarana & Prasarana - SMAN 1 Cidahu</title>
+    
+    <!-- Judul Halaman & Favicon (Ikon di Tab Browser) -->
+    <title>Pengaduan Sarana dan Prasarana SMAN 1 Cidahu</title>
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <!-- Meta Tag Open Graph (Untuk Tampilan Preview saat di-share di WhatsApp) -->
+    <meta property="og:title" content="Pengaduan Sarana dan Prasarana SMAN 1 Cidahu">
+    <meta property="og:description" content="Layanan resmi pelaporan dan pengaduan fasilitas sarana prasarana sekolah SMAN 1 Cidahu.">
+    <!-- Ganti URL di bawah ini dengan link penuh (HTTPS) ke file logo.png Anda setelah di-hosting -->
+    <meta property="og:image" content="https://username-anda.github.io/nama-repo/logo.png">
+    <meta property="og:type" content="website">
+
     <style>
         * {
             box-sizing: border-box;
@@ -37,6 +48,15 @@
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        /* Styling Logo Sekolah */
+        .school-logo {
+            width: 85px;
+            height: 85px;
+            object-fit: contain;
+            margin: 0 auto 14px auto;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
         .badge {
             display: inline-block;
             background: rgba(56, 189, 248, 0.2);
@@ -50,7 +70,7 @@
             margin-bottom: 16px;
         }
         h1 {
-            font-size: 22px;
+            font-size: 21px;
             margin-bottom: 12px;
             font-weight: 700;
             line-height: 1.3;
@@ -59,17 +79,17 @@
             font-size: 14px;
             color: #cbd5e1;
             line-height: 1.6;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
         }
         /* Animasi Spinner */
         .spinner {
-            width: 48px;
-            height: 48px;
-            border: 4px solid rgba(255, 255, 255, 0.15);
+            width: 38px;
+            height: 38px;
+            border: 3.5px solid rgba(255, 255, 255, 0.15);
             border-top-color: #38bdf8;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 24px auto;
+            margin: 0 auto 20px auto;
         }
         @keyframes spin {
             to { transform: rotate(360deg); }
@@ -111,10 +131,14 @@
 <body>
 
     <div class="card">
+        <!-- Logo Sekolah di Halaman Utama -->
+        <img src="logo.png" alt="Logo SMAN 1 Cidahu" class="school-logo">
+        
         <div class="badge">SMAN 1 Cidahu</div>
-        <div class="spinner"></div>
-        <h1>Layanan Pengaduan Sarana & Prasarana</h1>
+        <h1>Pengaduan Sarana dan Prasarana SMAN 1 Cidahu</h1>
         <p>Anda akan segera diarahkan ke formulir resmi pengaduan Sarana dan Prasarana Sekolah SMAN 1 Cidahu...</p>
+        
+        <div class="spinner"></div>
         
         <div class="progress-container">
             <div class="progress-bar"></div>
