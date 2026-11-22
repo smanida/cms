@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator QR Code - SMAN 1 Cidahu</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <!-- Library QRCode Styling (Mendukung Logo di Tengah & Resolusi Tinggi) -->
+    <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #2563eb;
+            --accent: #38bdf8;
+            --bg-dark: #0f172a;
+            --bg-page: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--primary) 100%);
+            color: #ffffff;
+            padding: 28px 20px 48px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        header p {
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        /* Main Layout */
+        .container {
+            max-width: 920px;
+            width: 100%;
+            margin: -28px auto 40px auto;
+            padding: 0 16px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+        }
+
+        .panel h2 {
+            font-size: 17px;
+            margin-bottom: 16px;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        input[type="text"], input[type="url"], select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            background: #f8fafc;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            border-color: var(--primary-light);
+            background: #ffffff;
+        }
+
+        /* Quick Presets */
+        .presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .preset-btn {
+            background: #e0f2fe;
+            color: #0369a1;
+            border: 1px solid #bae6fd;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .preset-btn:hover {
+            background: #0284c7;
+            color: #ffffff;
+        }
+
+        /* Color & File Row */
+        .row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        input[type="color"] {
+            width: 100%;
+            height: 40px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            padding: 2px;
+            background: #ffffff;
+        }
+
+        /* Preview Card */
+        .preview-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .qr-box {
+            background: #ffffff;
+            border: 2px dashed #cbd5e1;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 18px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #qrCanvas {
+            margin: 0 auto;
+        }
+
+        .qr-caption-preview {
+            margin-top: 12px;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text-main);
+            word-break: break-word;
+        }
+
+        .qr-subcaption-preview {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Buttons */
+        .btn-download {
+            width: 100%;
+            background: linear-gradient(90deg, #16a34a, #15803d);
+            color: #ffffff;
+            border: none;
+            padding: 13px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(22, 163, 74, 0.25);
+            transition: transform 0.2s;
+            margin-bottom: 10px;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-print {
+            width: 100%;
+            background: #f1f5f9;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-print:hover {
+            background: #e2e8f0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+
+        /* Mode Cetak (Hanya mencetak kotak QR Code) */
+        @media print {
+            body * { visibility: hidden; }
+            .qr-box, .qr-box * { visibility: visible; }
+            .qr-box {
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                border: 2px solid #000;
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>QR Code Generator Sekolah</h1>
+        <p>Buat QR Code instan untuk tautan ujian CBT, formulir, maupun layanan sekolah</p>
+    </header>
+
+    <main class="container">
+        <!-- Panel Pengaturan -->
+        <section class="panel">
+            <h2>1. Masukkan Tautan & Keterangan</h2>
+
+            <div class="form-group">
+                <label>Pintasan Cepat (Klik untuk mengisi otomatis):</label>
+                <div class="presets">
+                    <button type="button" class="preset-btn" onclick="setPreset('https://ujian.sman1cidahu.sch.id/', 'UJIAN ONLINE SISWA', 'Scan untuk masuk ke ruang ujian')">📝 Link Ujian Siswa</button>
+                    <button type="button" class="preset-btn" onclick="setPreset('https://sman1cidahu.sch.id/', 'WEB SEKOLAH', 'Scan untuk menuju web sekolah')">👨‍🏫 Website Sekolah</button>
+                    <button type="button" class="preset-btn" onclick="setPreset('https://sman1cidahu.sch.id/sarpras/', 'PENGADUAN SARPRAS', 'Scan untuk lapor kerusakan fasilitas')">🏫 Web Sarpras</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="urlInput">URL / Tautan Tujuan *</label>
+                <input type="url" id="urlInput"  placeholder="https://contoh-link.com" oninput="updateQR()">
+            </div>
+
+            <div class="form-group">
+                <label for="titleInput">Judul di Bawah QR (Opsional - Ikut terunduh)</label>
+                <input type="text" id="titleInput" value="UJIAN ONLINE SISWA" placeholder="Contoh: UJIAN BAHASA INDONESIA" oninput="updateQR()">
+            </div>
+
+            <div class="form-group">
+                <label for="subInput">Sub-keterangan (Opsional)</label>
+                <input type="text" id="subInput" value="Scan untuk masuk ke ruang ujian" placeholder="Contoh: SMAN 1 Cidahu" oninput="updateQR()">
+            </div>
+
+            <div class="row-2">
+                <div class="form-group">
+                    <label for="colorInput">Warna QR Code</label>
+                    <input type="color" id="colorInput" value="#0f172a" onchange="updateQR()">
+                </div>
+                <div class="form-group">
+                    <label for="styleSelect">Gaya Titik QR</label>
+                    <select id="styleSelect" onchange="updateQR()">
+                        <option value="rounded">Modern (Rounded)</option>
+                        <option value="square">Klasik (Kotak)</option>
+                        <option value="dots">Titik (Dots)</option>
+                        <option value="classy">Elegan (Classy)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="logoInput">Sisipkan Logo di Tengah QR (Opsional)</label>
+                <input type="file" id="logoInput" accept="image/*" onchange="handleLogoUpload(event)">
+            </div>
+        </section>
+
+        <!-- Panel Hasil & Unduh -->
+        <section class="panel preview-panel">
+            <h2 style="width: 100%; text-align: left;">2. Hasil QR Code</h2>
+            
+            <div class="qr-box" id="printableArea">
+                <div id="qrCanvas"></div>
+                <div class="qr-caption-preview" id="previewTitle">UJIAN ONLINE SISWA</div>
+                <div class="qr-subcaption-preview" id="previewSub">Scan untuk masuk ke ruang ujian</div>
+            </div>
+
+            <button type="button" class="btn-download" onclick="downloadPosterQR()">
+                ⬇ Download Gambar (PNG)
+            </button>
+            <button type="button" class="btn-print" onclick="window.print()">
+                🖨️ Cetak Langsung (Print)
+            </button>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 Layanan Digital Sekolah - SMAN 1 Cidahu
+    </footer>
+
+    <script>
+        let uploadedLogoBase64 = "";
+
+        // Inisialisasi objek QRCodeStyling
+        const qrCode = new QRCodeStyling({
+            width: 240,
+            height: 240,
+            type: "canvas",
+            data: "http://192.154.204.145:1988",
+            dotsOptions: {
+                color: "#0f172a",
+                type: "rounded"
+            },
+            backgroundOptions: {
+                color: "#ffffff"
+            },
+            imageOptions: {
+                crossOrigin: "anonymous",
+                margin: 6,
+                imageSize: 0.35
+            }
+        });
+
+        qrCode.append(document.getElementById("qrCanvas"));
+
+        function setPreset(url, title, sub) {
+            document.getElementById("urlInput").value = url;
+            document.getElementById("titleInput").value = title;
+            document.getElementById("subInput").value = sub;
+            updateQR();
+        }
+
+        function handleLogoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                uploadedLogoBase64 = "";
+                updateQR();
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                uploadedLogoBase64 = e.target.result;
+                updateQR();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateQR() {
+            const url = document.getElementById("urlInput").value.trim() || "https://sman1cidahu.sch.id";
+            const title = document.getElementById("titleInput").value;
+            const sub = document.getElementById("subInput").value;
+            const color = document.getElementById("colorInput").value;
+            const dotStyle = document.getElementById("styleSelect").value;
+
+            document.getElementById("previewTitle").textContent = title;
+            document.getElementById("previewSub").textContent = sub;
+
+            qrCode.update({
+                data: url,
+                image: uploadedLogoBase64 || undefined,
+                dotsOptions: {
+                    color: color,
+                    type: dotStyle
+                }
+            });
+        }
+
+        // Menggabungkan QR Code + Teks Judul menjadi 1 file PNG siap cetak/share
+        // Menggabungkan QR Code Ultra-HD (1000x1000px) + Teks Judul menjadi 1 file PNG tajam
+        async function downloadPosterQR() {
+            const url = document.getElementById("urlInput").value.trim() || "https://sman1cidahu.sch.id";
+            const title = document.getElementById("titleInput").value.trim();
+            const sub = document.getElementById("subInput").value.trim();
+            const color = document.getElementById("colorInput").value;
+            const dotStyle = document.getElementById("styleSelect").value;
+
+            const hdQrSize = 1000; // Ukuran asli QR Code HD (1000x1000 px)
+
+            // Buat QR Code baru khusus untuk render HD saat download
+            const hdQrCode = new QRCodeStyling({
+                width: hdQrSize,
+                height: hdQrSize,
+                type: "canvas",
+                data: url,
+                image: uploadedLogoBase64 || undefined,
+                dotsOptions: {
+                    color: color,
+                    type: dotStyle
+                },
+                backgroundOptions: {
+                    color: "#ffffff"
+                },
+                imageOptions: {
+                    crossOrigin: "anonymous",
+                    margin: 18, // Margin logo proporsional untuk ukuran 1000px
+                    imageSize: 0.35
+                }
+            });
+
+            const qrRawBlob = await hdQrCode.getRawData("png");
+            const qrImg = new Image();
+            qrImg.src = URL.createObjectURL(qrRawBlob);
+
+            qrImg.onload = function() {
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+
+                const padding = 80;
+                const extraHeight = (title ? 105 : 0) + (sub ? 65 : 0);
+
+                canvas.width = hdQrSize + (padding * 2);
+                canvas.height = hdQrSize + (padding * 2) + extraHeight;
+
+                // Background Putih
+                ctx.fillStyle = "#ffffff";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Gambar QR Code sesuai ukuran asli 1000x1000px (tanpa scaling/pembesaran)
+                ctx.drawImage(qrImg, padding, padding, hdQrSize, hdQrSize);
+
+                // Gambar Teks Judul & Sub-judul di bawah QR dengan ukuran font proporsional HD
+                ctx.textAlign = "center";
+                let currentY = hdQrSize + padding + 75;
+
+                if (title) {
+                    ctx.fillStyle = "#0f172a";
+                    ctx.font = "bold 54px 'Segoe UI', Arial, sans-serif";
+                    ctx.fillText(title, canvas.width / 2, currentY);
+                    currentY += 68;
+                }
+
+                if (sub) {
+                    ctx.fillStyle = "#64748b";
+                    ctx.font = "38px 'Segoe UI', Arial, sans-serif";
+                    ctx.fillText(sub, canvas.width / 2, currentY);
+                }
+
+                // Trigger Download
+                const link = document.createElement("a");
+                const fileName = title ? title.toLowerCase().replace(/[^a-z0-9]/g, "-") : "qrcode-link";
+                link.download = `QR-${fileName}-HD.png`;
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+            };
+        }
+    </script>
+
+</body>
+</html>
